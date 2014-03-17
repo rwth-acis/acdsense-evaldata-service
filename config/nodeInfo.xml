@@ -1,0 +1,4 @@
+<las2peerNode>
+	<adminEmail>user@domain.com</adminEmail>
+	<description>A LAS2peer node hosting the ACDSense Evaluation Data Service.</description>
+</las2peerNode>

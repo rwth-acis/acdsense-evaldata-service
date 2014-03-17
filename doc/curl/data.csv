@@ -1,0 +1,2 @@
+id;time;fromjid;tojid;msg;msgsize;pldsize
+1005;1111111111111;temperature@role.dbis.rwth-aachen.de;office6237@ambience.role.dbis.rwth-aachen.de/temperature;msg;268;103

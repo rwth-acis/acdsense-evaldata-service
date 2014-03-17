@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<service name="i5.las2peer.services.acdsense.DataService" version="0.1">
+  <methods>
+    <method httpMethod="get" name="getInfo" path="info" type="java.lang.String">
+      <parameters/>
+    </method>
+    <method httpMethod="get" name="auth" path="auth" type="java.lang.String">
+        <parameters/>
+    </method>
+	<method httpMethod="post" name="createTest" path="tests" type="java.lang.String">
+      <parameters>
+		<parameter annotation="content" index="0" name="" type="java.lang.String"/>
+        <parameter annotation="query" index="1" name="format" type="java.lang.String"/>
+      </parameters>
+    </method>
+	<method httpMethod="get" name="getTest" path="tests/{id}" type="java.lang.String">
+      <parameters>
+		<parameter annotation="path" index="0" name="id" type="java.lang.String"/>
+        <parameter annotation="query" index="1" name="format" type="java.lang.String"/>
+      </parameters>
+    </method>
+	<method httpMethod="get" name="getTestData" path="tests/{id}/data" type="java.lang.String">
+      <parameters>
+		<parameter annotation="path" index="0" name="id" type="java.lang.String"/>
+        <parameter annotation="query" index="1" name="format" type="java.lang.String"/>
+      </parameters>
+    </method>
+	<method httpMethod="post" name="storeTestDisco" path="tests/{id}/disco" type="java.lang.String">
+      <parameters>
+		<parameter annotation="path" index="0" name="id" type="java.lang.String"/>
+		<parameter annotation="content" index="1" name="" type="java.lang.String"/>
+        <parameter annotation="query" index="2" name="format" type="java.lang.String"/>
+      </parameters>
+    </method>
+	<method httpMethod="get" name="getTestDisco" path="tests/{id}/disco" type="java.lang.String">
+      <parameters>
+		<parameter annotation="path" index="0" name="id" type="java.lang.String"/>
+        <parameter annotation="query" index="1" name="format" type="java.lang.String"/>
+      </parameters>
+    </method>
+	<method httpMethod="delete" name="deleteTest" path="tests/{id}" type="java.lang.String">
+      <parameters>
+		<parameter annotation="path" index="0" name="id" type="java.lang.String"/>
+      </parameters>
+    </method>
+    <method httpMethod="get" name="getData" path="data" type="java.lang.String">
+      <parameters>
+        <parameter annotation="query" index="0" name="format" type="java.lang.String"/>
+      </parameters>
+    </method>
+    <method httpMethod="post" name="storeSendDataPackage" path="tests/{id}/data/send" type="java.lang.String">
+      <parameters>
+		<parameter annotation="path" index="0" name="id" type="java.lang.String"/>
+		<parameter annotation="content" index="1" name="" type="java.lang.String"/>
+        <parameter annotation="query" index="2" name="format" type="java.lang.String"/>
+      </parameters>
+    </method>
+	<method httpMethod="post" name="storeReceiveDataPackage" path="tests/{id}/data/receive" type="java.lang.String">
+      <parameters>
+        <parameter annotation="path" index="0" name="id" type="java.lang.String"/>
+		<parameter annotation="content" index="1" name="" type="java.lang.String"/>
+        <parameter annotation="query" index="2" name="format" type="java.lang.String"/>
+      </parameters>
+    </method>
+  </methods>
+</service>

@@ -1,0 +1,12 @@
+<ivy-module version="2.0">
+    <info organisation="i5" module="acdsense-data-service"/>
+    <dependencies>
+		<dependency org="junit" name="junit" rev="4.11"/>
+        <dependency org="mysql" name="mysql-connector-java" rev="5.1.6" /> 
+		<dependency org="com.googlecode.json-simple" name="json-simple" rev="1.1" />
+        <dependency org="i5" name="las2peer" rev="0.0.3.3" />
+		<dependency org="i5" name="i5-httpServer" rev="0.4"/>
+		<dependency org="i5" name="i5-httpConnector" rev="0.1.1"/>
+		<dependency org="i5" name="i5-WebConnector" rev="0.0.1"/>
+    </dependencies>
+</ivy-module>

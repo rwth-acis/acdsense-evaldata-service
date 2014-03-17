@@ -38,7 +38,7 @@ create table testmeta (
 );
 
 -- -----------------------------------------------------
--- Definition table testmeta
+-- Definition table disco
 --
 -- - testid - Unique test identifier (cf. table testmeta)
 -- - cjid - Client JID

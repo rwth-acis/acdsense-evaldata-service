@@ -224,7 +224,7 @@
         </java>
     </target>
 
-    <target name="generate_configs" depends="generate_service_agent, generate_user_agent, generate_user_agent_rwth, generate_user_agent_tud">
+    <target name="generate_configs" depends="generate_service_agent, generate_user_agent">
 <echo file="${passphrases.path}" append="false">agent-service-${service.name}.xml;${service.password}
 agent-user-${las2peer_user.name}.xml;${las2peer_user.password}
 </echo>

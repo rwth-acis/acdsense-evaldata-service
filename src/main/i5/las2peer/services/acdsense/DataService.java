@@ -280,9 +280,9 @@ public class DataService extends Service {
 			}
 			
 			if("json".equals(format)){
-				storeTestDiscoJSON(c);
+				storeTestDiscoJSON(testId,c);
 			} else {
-				storeTestDiscoCSV(c);
+				storeTestDiscoCSV(testId,c);
 			}
 			HttpResponse response = new HttpResponse("",200);
 			return response;
@@ -336,19 +336,18 @@ public class DataService extends Service {
 
 	private String getTestDiscoCSV(ResultSet rs) throws SQLException{
 
-		String csv = "testid;cjid;time;dur\n"; 
+		String csv = "cjid;time;dur\n"; 
 
 		if(rs == null){
 			return csv;
 		}
 
 		while(rs.next()){
-			String testId = rs.getString("testid");
 			String cjid = rs.getString("cjid");
 			Long time =  rs.getLong("time");
 			String dur = rs.getString("dur");
 
-			csv += testId + ";" + cjid + ";" + time + ";" + dur + "\n";
+			csv += cjid + ";" + time + ";" + dur + "\n";
 		}
 		return csv;
 	}
@@ -381,7 +380,7 @@ public class DataService extends Service {
 		return a.toJSONString();
 	}
 	
-	private void storeTestDiscoCSV(String content) throws SQLException{
+	private void storeTestDiscoCSV(String testId, String content) throws SQLException{
 		BufferedReader br = null;
 		try { 
 
@@ -393,31 +392,30 @@ public class DataService extends Service {
 				throw new IllegalArgumentException("Invalid data format detected! CSV must have at least one line.");
 			}
 
-			if(!"testid;cjid;time;dur".equals(firstline)){
-				throw new IllegalArgumentException("Invalid data format detected! CSV must have header line 'id;cjid;time;dur'.");
+			if(!"cjid;time;dur".equals(firstline)){
+				throw new IllegalArgumentException("Invalid data format detected! CSV must have header line 'cjid;time;dur'.");
 			}
 
 			while ((line = br.readLine()) != null) {
 				// tokenize CSV line
 				String[] tokens = line.split(";");
 
-				if(tokens.length !=4){
-					throw new IllegalArgumentException("Invalid data format detected! Each line in CSV must have 4 tokens, separated by semicolons (';').");
+				if(tokens.length !=3){
+					throw new IllegalArgumentException("Invalid data format detected! Each line in CSV must have 3 tokens, separated by semicolons (';').");
 				}
 
-				String testId = tokens[0];
-				String cjid = tokens[1];
+				String cjid = tokens[0];
 
 				Long time;
 				try {
-					time = Long.parseLong(tokens[2]);
+					time = Long.parseLong(tokens[1]);
 				} catch (NumberFormatException e) {
 					throw new IllegalArgumentException("Invalid data format detected! Time must be specified in milliseconds since Jan 1, 1970.");
 				}
 				
 				Long dur;
 				try {
-					dur = Long.parseLong(tokens[3]);
+					dur = Long.parseLong(tokens[2]);
 				} catch (NumberFormatException e) {
 					throw new IllegalArgumentException("Invalid data format detected! Duration must be specified in milliseconds");
 				}
@@ -449,7 +447,7 @@ public class DataService extends Service {
 		}
 	}
 
-	private void storeTestDiscoJSON(String content) throws SQLException{
+	private void storeTestDiscoJSON(String testId, String content) throws SQLException{
 		JSONArray a;
 
 		try {
@@ -461,8 +459,8 @@ public class DataService extends Service {
 
 		JSONObject o = (JSONObject) a.get(0);
 
-		if(o.get("testid") == null || o.get("cjid") == null || o.get("time") == null || o.get("dur") == null){
-			throw new IllegalArgumentException("Invalid data format detected! Each data object must have fields testid, cjid, time and dur.");
+		if(o.get("cjid") == null || o.get("time") == null || o.get("dur") == null){
+			throw new IllegalArgumentException("Invalid data format detected! Each data object must have fields cjid, time and dur.");
 		}
 
 		for(int i = 0; i<a.size(); i++){
@@ -470,7 +468,7 @@ public class DataService extends Service {
 			JSONObject obj = (JSONObject) a.get(i);
 			
 			testDiscoInsertStatement.clearParameters();
-			testDiscoInsertStatement.setString(1, (String) obj.get("testid"));
+			testDiscoInsertStatement.setString(1, testId);
 			testDiscoInsertStatement.setString(2, (String) obj.get("cjid"));
 			testDiscoInsertStatement.setLong(3, (Long) obj.get("time"));
 			testDiscoInsertStatement.setLong(4, (Long) obj.get("dur"));

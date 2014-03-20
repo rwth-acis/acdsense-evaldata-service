@@ -545,8 +545,8 @@ public class DataServiceTest {
 		dJson = new JSONArray();
 		ddJson = new JSONArray();
 		
-		dCsv = "testid;cjid;time;dur\n";
-		ddCsv =  "testid;cjid;time;dur\n";
+		dCsv = "cjid;time;dur\n";
+		ddCsv =  "cjid;time;dur\n";
 
 		String csvItem1 = generateTestDiscoItemCSV(mCsvId, "klamma@role.dbis.rwth-aachen.de");
 		String csvItem2 = generateTestDiscoItemCSV(mCsvId, "renzel@role.dbis.rwth-aachen.de");
@@ -631,10 +631,9 @@ public class DataServiceTest {
 
 		JSONObject obj=new JSONObject();
 
-		obj.put("testid",testId); // standard XMPP stanza attribute "id"; used for merging send and receive data 
-		obj.put("cjid",cjid); // system time of stanza processing completion on receiver client machine
-		obj.put("time",time); // standard XMPP stanza attribute "from" (sensor JID)
-		obj.put("dur",dur); // standard XMPP stanza attribute "to" (agent JID)
+		obj.put("cjid",cjid); // client jid
+		obj.put("time",time); // time of starting sensor discovery
+		obj.put("dur",dur); // duration of sensor discovery
 
 		return obj;
 	}
@@ -671,7 +670,7 @@ public class DataServiceTest {
 		Long time = System.currentTimeMillis();
 		Long dur = 10000l;
 
-		String result = testId + ";" + cjid + ";" + time + ";" + dur + "\n"; 
+		String result = cjid + ";" + time + ";" + dur + "\n"; 
 		return result;
 	}
 
